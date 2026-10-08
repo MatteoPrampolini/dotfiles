@@ -1,4 +1,3 @@
-;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
 ;; To install a package:
@@ -52,12 +51,22 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+
 (package! powershell
   :recipe (:host github
            :repo "jschaf/powershell.el"
-            :files ("powershell.el")))
-(package! darkroom)
-(package! svelte-mode)
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-(package! org-download)
+           :files ("powershell.el")))
+
+
+(package! catppuccin-theme)
+;PER ORG CI PENSA INIT.EL con i flag di doom
+
+;(package! org-roam)
+;(package! org-download) ;screenshot on org
+(package! org-super-agenda)
+;;begin epub
+(package! nov)
+(package! org-remark)
+(package! olivetti)
+;(package! visual-fill-column) ; capire se olivetti è sufficiente o se serve anche questo
+;(package! darkroom) ; alt ad olivetti, da provare
