@@ -54,8 +54,11 @@
         org-default-notes-file (expand-file-name "personale.org" org-directory)
         ;; Elenco esplicito: eventuali copie di conflitto non entrano in agenda.
         org-agenda-files
-        (list (expand-file-name "lavoro.org" org-directory)
-              (expand-file-name "personale.org" org-directory)))
+      (list (expand-file-name "lavoro.org" org-directory)
+            (expand-file-name "personale.org" org-directory)
+            (expand-file-name "laboratorio.org" org-directory)
+            (expand-file-name "uni.org" org-directory)
+            (expand-file-name "palestra.org" org-directory)))
 
   (setq org-display-custom-times t
         org-timestamp-custom-formats
@@ -71,7 +74,7 @@
 
           ("s" "Todo personale pianificato" entry
            (file+headline "personale.org" "Tasks")
-           "* TODO %?\nSCHEDULED: %^t\n"
+           "* TODO %^{Nome}\nSCHEDULED: %^{Data e ora}T\n:PROPERTIES:\n:LOCATION: %^{Luogo (opzionale)}\n:END:\n%^{Body (opzionale)}\n%?"
            :prepend t)
 
           ("d" "Scadenza personale" entry

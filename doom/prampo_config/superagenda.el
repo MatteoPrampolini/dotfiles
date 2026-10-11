@@ -1,6 +1,4 @@
 ;;; prampo_config/superagenda.el -*- lexical-binding: t; -*-
-
-;; TODO: bug shift arrow-> crescita degli header infinita.
 ;;
 ;;
 ;;; Icone: stesso font per titoli, categorie e indicatori.
@@ -20,21 +18,16 @@
     fallback))
 
 ;;; Stili: ereditano dal tema. Nessun colore RGB/HEX fissato qui.
-(defvar-local my/org-superagenda-face-cookies nil
-  "Stili applicati solo al buffer di questa agenda.")
-
-;; org-agenda-mode conserva face-remapping-alist quando ricrea il buffer.
-;; Conserva anche i riferimenti necessari a rimuovere i nostri vecchi stili:
-;; altrimenti ogni refresh accumula un altro moltiplicatore :height.
-(put 'my/org-superagenda-face-cookies 'permanent-local t)
-
 (defun my/org-superagenda-style ()
-  "Mantiene lo stile locale alla vista, anche quando viene aggiornata."
+  "Riapplica lo stile locale senza accumulare ingrandimenti al refresh."
   (when (equal (buffer-name) "*Org Agenda: Prampo*")
     (require 'face-remap)
-    (dolist (cookie my/org-superagenda-face-cookies)
-      (face-remap-remove-relative cookie))
-    (setq my/org-superagenda-face-cookies nil)
+    ;; I cookie di face-remap-remove-relative dipendono dall'identità
+    ;; degli oggetti: se un hook copia face-remapping-alist (come fa
+    ;; org-modern-agenda), non possono più rimuovere i vecchi stili.
+    ;; Sostituiamo quindi per NOME le sole face gestite da questa vista.
+    ;; La copia evita di modificare strutture condivise con altri buffer.
+    (setq-local face-remapping-alist (copy-tree face-remapping-alist))
     (dolist (spec '((org-agenda-structure :height 1.3 :weight bold)
                    (org-super-agenda-header
                     :inherit org-level-2 :height 1.15 :weight bold)
@@ -45,26 +38,100 @@
                    ;; DONE e avvisi conservano le rispettive face del tema.
                    (org-scheduled :inherit default :weight normal)
                    (org-scheduled-today :inherit default :weight normal)))
-      (push (face-remap-add-relative (car spec) (cdr spec))
-            my/org-superagenda-face-cookies))
+      ;; Elimina anche eventuali moltiplicatori delle versioni precedenti.
+      (setq face-remapping-alist
+            (assq-delete-all (car spec) face-remapping-alist))
+      ;; Una sola base per face: stesso aspetto a ogni esecuzione.
+      ;; Il nome finale conserva gli attributi ereditati dal tema.
+      (face-remap-set-base (car spec) (cdr spec) (car spec)))
     ;; Org e super-agenda riscrivono le face dei titoli: riapplica il font
     ;; solo ai glifi, lasciando colore e dimensione ereditati dal titolo.
     (when-let ((family (my/org-superagenda-icon-font)))
       (let ((inhibit-read-only t))
         (save-excursion
           (goto-char (point-min))
-          (while (re-search-forward "[]" nil t)
+          (while (re-search-forward "[󰇦]" nil t)
             (add-face-text-property (match-beginning 0) (match-end 0)
                                     `(:family ,family))))))
     (setq-local line-spacing 0.08
-                truncate-lines nil)
+                truncate-lines t
+                word-wrap nil)
     (when (bound-and-true-p display-line-numbers-mode)
       (display-line-numbers-mode -1))))
+
+(defun my/org-superagenda-align-tags ()
+  "Allinea i tag in una colonna comune, anche con icone e badge."
+  (when (equal (buffer-name) "*Org Agenda: Prampo*")
+    (let ((inhibit-read-only t)
+          (tag-width 28))
+      (save-excursion
+        (save-match-data
+          ;; Riserva spazio per il gruppo di tag più lungo e per i badge.
+          (goto-char (point-min))
+          (while (re-search-forward org-tag-group-re nil t)
+            (let ((tags (match-string-no-properties 1)))
+              (setq tag-width
+                    (max tag-width
+                         (+ 4 (string-width tags)
+                            (* 2 (length (split-string tags ":" t)))))))))
+        (save-match-data
+          (goto-char (point-min))
+          (while (re-search-forward org-tag-group-re nil t)
+            (let* ((end (match-beginning 1))
+                   (beg (save-excursion
+                          (goto-char end)
+                          (skip-chars-backward " \t" (line-beginning-position))
+                          (point))))
+              (when (< beg end)
+                ;; Il padding non deve ereditare display/face dei badge.
+                (remove-text-properties
+                 beg end '(face nil font-lock-face nil display nil
+                                invisible nil composition nil))
+                ;; Un allineamento grafico, indipendente dalla larghezza
+                ;; di TODO, priorità e icone. Si adatta alla finestra.
+                (put-text-property
+                 beg end 'display
+                 `(space :align-to (- right ,tag-width)))))))))))
+
+(defun my/org-superagenda-refresh-after-priority (&rest _)
+  "Ricalcola i gruppi dopo una priorità e segue lo stesso TODO."
+  (when (and (derived-mode-p 'org-agenda-mode)
+             (equal (buffer-name) "*Org Agenda: Prampo*"))
+    (let ((marker (when-let ((source (org-get-at-bol 'org-hd-marker)))
+                    ;; Org invalida i propri marker durante il refresh.
+                    (copy-marker source)))
+          (column (current-column))
+          (current-prefix-arg nil))
+      (when (and (markerp marker) (marker-buffer marker))
+        (unwind-protect
+            (progn
+              ;; L'aggiornamento della sola riga non riesegue i selettori
+              ;; e può riusare il formato di un altro blocco.
+              (org-agenda-redo)
+              (let ((position
+                     (save-excursion
+                       (goto-char (point-min))
+                       (catch 'found
+                         (while (not (eobp))
+                           (when (equal marker (org-get-at-bol 'org-hd-marker))
+                             (throw 'found (point)))
+                           (forward-line 1))))))
+                (when position
+                  (goto-char position)
+                  (move-to-column (min column
+                                       (- (line-end-position)
+                                          (line-beginning-position)))))))
+          (set-marker marker nil))))))
 
 (after! org-agenda
   (require 'org-super-agenda)
   (org-super-agenda-mode 1)
   (add-hook 'org-agenda-finalize-hook #'my/org-superagenda-style)
+  ;; Esegui dopo org-modern, quando i badge hanno già il loro aspetto.
+  (add-hook 'org-agenda-finalize-hook #'my/org-superagenda-align-tags 90)
+  ;; Copre Shift-su/giù, +/-, e l'impostazione diretta della priorità.
+  (advice-add 'org-agenda-priority :after
+              #'my/org-superagenda-refresh-after-priority)
 
   (setq org-agenda-custom-commands
         (cons
@@ -103,7 +170,16 @@
                          (:name ,(concat (my/org-superagenda-icon "" "⌂")
                                          "  Personale")
                           :category ("personale" "vita") :order 2)
-                         (:auto-category t :order 3))))))
+                         (:name ,(concat (my/org-superagenda-icon "" "🧪")
+                                         "  Laboratorio")
+                          :category "laboratorio" :order 3)
+                         (:name ,(concat (my/org-superagenda-icon "" "🎓")
+                                         "  Università")
+                          :category "uni" :order 4)
+                         (:name ,(concat (my/org-superagenda-icon "󰇦" "🏋")
+                                         "  Palestra")
+                          :category "palestra" :order 5)
+                         (:auto-category t :order 6))))))
            ;; Opzioni limitate a questa vista, valide anche al refresh.
            ((org-agenda-buffer-name "*Org Agenda: Prampo*")
             (org-agenda-window-setup 'current-window)
@@ -123,6 +199,8 @@
                (setcar grid (cons 'remove-match (remq 'remove-match (car grid))))
                grid))
             (org-agenda-time-leading-zero t)
+            ;; Un solo separatore prima dei tag; l'hook allinea i badge.
+            (org-agenda-tags-column 0)
             (org-agenda-category-icon-alist
              (list
               (list "^lavoro$"
@@ -130,6 +208,15 @@
                     nil nil :ascent 'center)
               (list "^\\(?:personale\\|vita\\)$"
                     (list (concat (my/org-superagenda-icon "" "⌂") " "))
+                    nil nil :ascent 'center)
+              (list "^laboratorio$"
+                    (list (concat (my/org-superagenda-icon "" "🧪") " "))
+                    nil nil :ascent 'center)
+              (list "^uni$"
+                    (list (concat (my/org-superagenda-icon "" "🎓") " "))
+                    nil nil :ascent 'center)
+              (list "^palestra$"
+                    (list (concat (my/org-superagenda-icon "󰇦" "🏋") " "))
                     nil nil :ascent 'center)))
             ;; %i = icona, %t = orario, %s = Scheduled/Deadline.
             ;; Niente "?": la colonna orario resta anche sulle righe senza ora.
