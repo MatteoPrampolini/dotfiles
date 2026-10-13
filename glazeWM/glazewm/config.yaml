@@ -163,6 +163,13 @@ window_rules:
       - window_process: { equals: 'Linkus Desktop Client' }
         window_class: { equals: 'Chrome_WidgetWin_1' }
         window_title: { equals: '' }
+      # League of Legends - Client
+      - window_process: { equals: 'LeagueClientUx' }
+        window_class: { equals: 'RCLIENT' }
+
+      # League of Legends - Gioco
+      - window_process: { equals: 'League of Legends' }
+        window_class: { equals: 'RiotWindowClass' }
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: 'resize'
