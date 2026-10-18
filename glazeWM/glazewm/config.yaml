@@ -170,6 +170,9 @@ window_rules:
       # League of Legends - Gioco
       - window_process: { equals: 'League of Legends' }
         window_class: { equals: 'RiotWindowClass' }
+
+      - window_title: { equals: 'LAN Plaza' }
+
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: 'resize'
