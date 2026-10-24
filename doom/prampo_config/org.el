@@ -1,3 +1,4 @@
+
 ;;; prampo_config/org.el -*- lexical-binding: t; -*-
 
 ;;; Lingua e date
@@ -48,6 +49,18 @@
       ;; after-finalize viene eseguito dopo il normale salvataggio di capture.
       (save-buffer))))
 
+;;; File e destinazioni capture
+(defun prampo/org-select-agenda-file ()
+  "Chiede in quale file di org-agenda-files salvare il capture."
+  (let* ((files (org-agenda-files t))
+         (choices
+          (mapcar (lambda (file)
+                    (cons (file-name-base file) file))
+                  files))
+         (selection
+          (completing-read "File Org: " choices nil t)))
+    (cdr (assoc selection choices))))
+
 ;;; File, capture e impostazioni comuni a Org
 (after! org
   (setq org-directory (expand-file-name "~/org/")
@@ -66,19 +79,20 @@
         org-agenda-format-date "%A, %d %B %Y")
 
   ;; I percorsi relativi dei capture sono risolti rispetto a org-directory.
+  ;; Todo, Schedule e Deadline chiedono prima il file di destinazione.
   (setq org-capture-templates
-        '(("t" "Todo personale" entry
-           (file+headline "personale.org" "Tasks")
+        '(("t" "Todo" entry
+           (file+headline prampo/org-select-agenda-file "Tasks")
            "* TODO %?\n"
            :prepend t)
 
-          ("s" "Todo personale pianificato" entry
-           (file+headline "personale.org" "Tasks")
+          ("s" "Schedule" entry
+           (file+headline prampo/org-select-agenda-file "Tasks")
            "* TODO %^{Nome}\nSCHEDULED: %^{Data e ora}T\n:PROPERTIES:\n:LOCATION: %^{Luogo (opzionale)}\n:END:\n%^{Body (opzionale)}\n%?"
            :prepend t)
 
-          ("d" "Scadenza personale" entry
-           (file+headline "personale.org" "Tasks")
+          ("d" "Deadline" entry
+           (file+headline prampo/org-select-agenda-file "Tasks")
            "* TODO %?\nDEADLINE: %^t\n"
            :prepend t)
 

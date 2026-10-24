@@ -19,4 +19,6 @@ pacman -S --needed \
   mingw-w64-ucrt-x86_64-pkgconf \
   mingw-w64-ucrt-x86_64-ripgrep \
   mingw-w64-ucrt-x86_64-fd
+  mingw-w64-ucrt-x86_64-git
+  mingw-w64-ucrt-x86_64-git-credential-wincred
 ```
