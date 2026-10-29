@@ -146,6 +146,11 @@ disabled = ["consume_from_left", "consume_from_right", "expel_to_left", "expel_t
 match_executable = "Microsoft.CmdPal.UI.exe"
 action = "ignore"
 
+# Avoid GLFW multi-instance crashes during forced focus changes.
+[[window_rules]]
+match_executable = "lan-plaza.exe"
+action = "ignore"
+
 [[window_rules]]
 match_class = "MozillaDialogClass"
 action = "tile"
