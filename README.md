@@ -27,3 +27,6 @@ New-Item -ItemType SymbolicLink `
 From then on, `$HOME\dotfiles\doom` is the source of truth.
 
 Pulling an update will update all the configs at once (hopefully).
+
+Windows Caps Lock setup (AutoHotkey v2 + Doom Evil + LeopardWM):
+see [the configuration guide](docs/capslock.org).

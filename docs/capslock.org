@@ -1,0 +1,57 @@
+Uccidiamo Caps Lock: niente blocco maiuscole, LED Windows spento mentre AutoHotkey gira.
+Caps + tasto invia F24 + tasto ovunque; Caps da solo in Emacs invia F13, che Doom tratta come Escape con Evil attivo.
+
+| Hotkey                         | Comando eseguito       |
+|--------------------------------+------------------------|
+| Caps da solo in Emacs con Evil | Escape (F13)           |
+| Caps da solo altrove           | Nessun comando         |
+| Caps + Left                    | focus_left             |
+| Caps + Right                   | focus_right            |
+| Caps + Up                      | focus_up               |
+| Caps + Down                    | focus_down             |
+| Caps + Alt + Left              | move_column_left       |
+| Caps + Alt + Right             | move_column_right      |
+| Caps + Alt + Shift + Left      | move_window_left       |
+| Caps + Alt + Shift + Right     | move_window_right      |
+| Caps + Home                    | focus_start            |
+| Caps + End                     | focus_end              |
+| Caps + Alt + Home              | move_column_to_start   |
+| Caps + Alt + End               | move_column_to_end     |
+| Caps + Ctrl + Left             | focus_monitor_left     |
+| Caps + Ctrl + Right            | focus_monitor_right    |
+| Caps + Ctrl + Up               | focus_monitor_up       |
+| Caps + Ctrl + Down             | focus_monitor_down     |
+| Caps + Ctrl + Shift + Left     | move_to_monitor_left   |
+| Caps + Ctrl + Shift + Right    | move_to_monitor_right  |
+| Caps + Ctrl + Shift + Up       | move_to_monitor_up     |
+| Caps + Ctrl + Shift + Down     | move_to_monitor_down   |
+| Caps + N (1-9)                 | switch_workspace_N     |
+| Caps + Shift + N (1-9)         | move_to_workspace_N    |
+| Caps + PageUp                  | workspace_prev         |
+| Caps + PageDown                | workspace_next         |
+| Caps + Shift + PageUp          | move_to_workspace_prev |
+| Caps + Shift + PageDown        | move_to_workspace_next |
+| Caps + -                       | cycle_width_down       |
+| Caps + +                       | cycle_width_up         |
+| Caps + NumpadSub               | cycle_width_down       |
+| Caps + NumpadAdd               | cycle_width_up         |
+| Caps + U                       | cycle_width_down       |
+| Caps + I                       | cycle_width_up         |
+| Caps + Shift + U               | cycle_height_down      |
+| Caps + Shift + I               | cycle_height_up        |
+| Caps + 0                       | equalize_widths        |
+| Caps + Shift + 0               | equalize_heights       |
+| Caps + M                       | maximize_column        |
+| Caps + C                       | center_column          |
+| Caps + F                       | toggle_floating        |
+| Caps + Shift + F               | toggle_fullscreen      |
+| Caps + T                       | toggle_tabbed          |
+| Caps + Space                   | toggle_overview        |
+| Caps + S                       | scratchpad_toggle      |
+| Caps + Shift + S               | scratchpad_stash       |
+| Caps + Y                       | toggle_sticky          |
+| Caps + Q                       | close_window           |
+| Caps + P                       | toggle_pause           |
+| Caps + R                       | refresh                |
+| Caps + Shift + R               | reload                 |
+| Win + Ctrl + Escape            | panic_revert           |

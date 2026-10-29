@@ -22,3 +22,5 @@ pacman -S --needed \
   mingw-w64-ucrt-x86_64-git
   mingw-w64-ucrt-x86_64-git-credential-wincred
 ```
+
+winget install AutoHotkey.AutoHotkey

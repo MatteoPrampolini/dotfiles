@@ -1,0 +1,183 @@
+[layout]
+gap = 10
+outer_gap_left = 10
+outer_gap_right = 10
+outer_gap_top = 10
+outer_gap_bottom = 10
+centering_mode = "center"
+center_single_column = false
+center_past_edges = false
+width_presets = [
+    0.2,
+    0.33,
+    0.4,
+    0.6,
+    0.667,
+    0.8,
+    1.0,
+]
+default_width_preset = 1
+height_presets = [
+    0.2,
+    0.33,
+    0.4,
+    0.6,
+    0.667,
+    0.8,
+    1.0,
+]
+
+[appearance]
+language = "en"
+active_border = true
+active_border_color = "4285F4"
+active_border_width = 2
+active_border_position = "outside"
+tab_strip_height = 28
+tab_strip_bg = "1F1F1F"
+tab_strip_active_bg = "303030"
+tab_strip_active_text = "FFFFFF"
+tab_strip_inactive_text = "A0A0A0"
+tab_strip_opacity = 230
+
+[behavior]
+focus_new_windows = true
+new_window_monitor = "opening"
+track_focus_changes = true
+log_level = "info"
+focus_follows_mouse = false
+focus_follows_mouse_delay_ms = 100
+disable_snap_layouts = true
+check_for_updates = true
+tab_close_action = "close_window"
+swap_chain_ghost_animation = true
+floating_above_tiled = false
+new_window_placement = "new_column"
+taskbar_buttons = "hide_offscreen"
+workspace_edge_wrap = false
+mouse_follows_focus = false
+fullscreen_follows_focus = true
+skip_empty_workspaces = false
+
+[hotkeys]
+# AutoHotkey translates physical Caps chords into F24 chords.
+# Keep Ctrl+Alt+wheel available for the existing scroll gesture.
+scroll_modifier = "Ctrl+Alt"
+# These actions deliberately have no binding; do not restore their defaults.
+disabled = ["consume_from_left", "consume_from_right", "expel_to_left", "expel_to_right", "move_window_up", "move_window_down"]
+
+# Arrows change focus; Alt reorders separate columns horizontally.
+"F24+Left" = "focus_left"
+"F24+Right" = "focus_right"
+"F24+Up" = "focus_up"
+"F24+Down" = "focus_down"
+"F24+Alt+Left" = "move_column_left"
+"F24+Alt+Right" = "move_column_right"
+
+# Shift inserts the focused window at the bottom of the adjacent column.
+"F24+Alt+Shift+Left" = "move_window_left"
+"F24+Alt+Shift+Right" = "move_window_right"
+"F24+Home" = "focus_start"
+"F24+End" = "focus_end"
+"F24+Alt+Home" = "move_column_to_start"
+"F24+Alt+End" = "move_column_to_end"
+
+# Monitors: Ctrl focuses; Ctrl+Shift moves the window.
+"F24+Ctrl+Left" = "focus_monitor_left"
+"F24+Ctrl+Right" = "focus_monitor_right"
+"F24+Ctrl+Up" = "focus_monitor_up"
+"F24+Ctrl+Down" = "focus_monitor_down"
+"F24+Ctrl+Shift+Left" = "move_to_monitor_left"
+"F24+Ctrl+Shift+Right" = "move_to_monitor_right"
+"F24+Ctrl+Shift+Up" = "move_to_monitor_up"
+"F24+Ctrl+Shift+Down" = "move_to_monitor_down"
+
+# Workspaces on the current monitor.
+"F24+1" = "switch_workspace_1"
+"F24+2" = "switch_workspace_2"
+"F24+3" = "switch_workspace_3"
+"F24+4" = "switch_workspace_4"
+"F24+5" = "switch_workspace_5"
+"F24+6" = "switch_workspace_6"
+"F24+7" = "switch_workspace_7"
+"F24+8" = "switch_workspace_8"
+"F24+9" = "switch_workspace_9"
+"F24+Shift+1" = "move_to_workspace_1"
+"F24+Shift+2" = "move_to_workspace_2"
+"F24+Shift+3" = "move_to_workspace_3"
+"F24+Shift+4" = "move_to_workspace_4"
+"F24+Shift+5" = "move_to_workspace_5"
+"F24+Shift+6" = "move_to_workspace_6"
+"F24+Shift+7" = "move_to_workspace_7"
+"F24+Shift+8" = "move_to_workspace_8"
+"F24+Shift+9" = "move_to_workspace_9"
+"F24+PageUp" = "workspace_prev"
+"F24+PageDown" = "workspace_next"
+"F24+Shift+PageUp" = "move_to_workspace_prev"
+"F24+Shift+PageDown" = "move_to_workspace_next"
+
+# Layout and utility commands. Letter keys also work on Italian layouts.
+"F24+Minus" = "cycle_width_down"
+"F24+Equals" = "cycle_width_up"
+"F24+U" = "cycle_width_down"
+"F24+I" = "cycle_width_up"
+"F24+Shift+U" = "cycle_height_down"
+"F24+Shift+I" = "cycle_height_up"
+"F24+0" = "equalize_widths"
+"F24+Shift+0" = "equalize_heights"
+"F24+M" = "maximize_column"
+"F24+C" = "center_column"
+"F24+F" = "toggle_floating"
+"F24+Shift+F" = "toggle_fullscreen"
+"F24+T" = "toggle_tabbed"
+"F24+Space" = "toggle_overview"
+"F24+S" = "scratchpad_toggle"
+"F24+Shift+S" = "scratchpad_stash"
+"F24+Y" = "toggle_sticky"
+"F24+Q" = "close_window"
+"F24+P" = "toggle_pause"
+"F24+R" = "refresh"
+"F24+Shift+R" = "reload"
+# Keep the emergency shortcut independent of AutoHotkey.
+"Win+Ctrl+Escape" = "panic_revert"
+
+# PowerToys Command Palette manages its own popup placement.
+[[window_rules]]
+match_executable = "Microsoft.CmdPal.UI.exe"
+action = "ignore"
+
+[[window_rules]]
+match_class = "MozillaDialogClass"
+action = "tile"
+corner_style = "square"
+open_maximized = false
+sticky = false
+
+[gestures]
+enabled = true
+wheel_swipes = true
+swipe_left = "focus_left"
+swipe_right = "focus_right"
+swipe_up = "focus_up"
+swipe_down = "focus_down"
+scroll_up = "focus_next"
+scroll_down = "focus_prev"
+
+[snap_hints]
+enabled = true
+duration_ms = 200
+opacity = 128
+
+[animation]
+layout_duration_ms = 150
+workspace_switch_duration_ms = 200
+scroll_duration_ms = 200
+overview_duration_ms = 150
+easing = "ease_out"
+reduce_motion_on_battery = true
+
+[workspaces]
+names = []
+
+[overview]
+render = "live"

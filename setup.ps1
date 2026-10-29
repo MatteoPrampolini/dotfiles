@@ -60,6 +60,10 @@ $links = @(
     @{
         Path   = "$HOME\.glzr"
         Target = "$dotfiles\glazeWM"
+    },
+    @{
+        Path   = "$env:APPDATA\leopardwm\config\config.toml"
+        Target = "$dotfiles\leopardwm\config.toml"
     }
 )
 
