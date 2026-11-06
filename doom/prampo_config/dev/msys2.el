@@ -158,7 +158,10 @@
               nil nil #'equal)
              command)))))))
 
-
+;;; don't use MSYS2 ssh, use Windows' default
+(let ((dir "C:/Windows/System32/OpenSSH"))
+  (setq exec-path (cons dir (delete dir exec-path)))
+  (setenv "PATH" (concat dir path-separator (getenv "PATH"))))
 ;;; Note
 ;;
 ;; --query-driver autorizza clangd a interrogare i compilatori elencati.

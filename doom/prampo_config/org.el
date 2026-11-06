@@ -123,3 +123,13 @@
              (executable-find "xclip"))
     (setq org-download-screenshot-method
           "xclip -selection clipboard -t image/png -o > %s")))
+
+;;; org-table, pressing tab skips all left-side whitespaces
+(after! org
+  (defun my/org-table-skip-padding (&rest _)
+    (when (and (org-at-table-p)
+               (looking-at "[ \t]+[^ \t|]"))
+      (skip-chars-forward " \t")))
+
+  (advice-add 'org-table-next-field :after #'my/org-table-skip-padding)
+  (advice-add 'org-table-previous-field :after #'my/org-table-skip-padding))
