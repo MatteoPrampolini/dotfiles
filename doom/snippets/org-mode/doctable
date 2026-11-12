@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Doctable
+# key: doctable
+# condition: t
+# --
+| Nome | URL | Utente | Password | Commento |
+|------+-----+--------+----------+----------|
+| $1   | $2  | $3     | $4       | $5       |
