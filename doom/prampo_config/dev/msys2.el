@@ -162,6 +162,14 @@
 (let ((dir "C:/Windows/System32/OpenSSH"))
   (setq exec-path (cons dir (delete dir exec-path)))
   (setenv "PATH" (concat dir path-separator (getenv "PATH"))))
+
+
+;; GNU cflow
+(add-to-list 'load-path
+             (expand-file-name "dotfiles/doom/prampo_config/dev/vendor" (getenv "HOME")))
+
+(autoload 'cflow-mode "cflow-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.cflow\\'" . cflow-mode))
 ;;; Note
 ;;
 ;; --query-driver autorizza clangd a interrogare i compilatori elencati.
