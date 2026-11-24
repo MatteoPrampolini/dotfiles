@@ -38,6 +38,9 @@
          (ucrt-bin (directory-file-name
                     (expand-file-name "ucrt64/bin" root)))
 
+         (emscripten-bin (directory-file-name
+                          (expand-file-name "ucrt64/lib/emscripten" root)))
+
          (msys-bin (directory-file-name
                     (expand-file-name "usr/bin" root)))
 
@@ -74,7 +77,9 @@
         ;; UCRT64 ha precedenza sugli strumenti MSYS.
         ;; delete-dups evita duplicati quando ricarichi il file.
 
-        (let ((dirs (append (list ucrt-bin) library-bins (list msys-bin))))
+        (let ((dirs (append (list ucrt-bin emscripten-bin)
+                            library-bins
+                            (list msys-bin))))
 
           (setq exec-path
                 (delete-dups
@@ -114,7 +119,7 @@
         (setenv "MSYSTEM" "UCRT64")
         (setenv "CHERE_INVOKING" "1")
         (setenv "MSYS2_PATH_TYPE" "inherit")
-
+        (setenv "MSYS_NO_PATHCONV" nil)
 
         ;;; Shell
 
@@ -173,7 +178,6 @@
 ;;; Note
 ;;
 ;; --query-driver autorizza clangd a interrogare i compilatori elencati.
-;;
 ;; Per progetti complessi utilizzare compile_commands.json.
 ;; Non sincronizzare su Linux database con percorsi assoluti Windows.
 ;;
@@ -181,7 +185,6 @@
 ;; evitare modifiche incondizionate di PATH o cd in .bashrc/.bash_profile.
 ;;
 ;; GDB installa Python UCRT come dipendenza.
-;; Per Python usare un interprete/venv esplicito.
 ;; GNU cflow
 (add-to-list 'load-path
              (expand-file-name "dotfiles/doom/prampo_config/dev/vendor" (getenv "HOME")))
