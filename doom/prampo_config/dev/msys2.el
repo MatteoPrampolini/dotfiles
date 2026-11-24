@@ -174,6 +174,12 @@
 ;;
 ;; GDB installa Python UCRT come dipendenza.
 ;; Per Python usare un interprete/venv esplicito.
+;; GNU cflow
+(add-to-list 'load-path
+             (expand-file-name "dotfiles/doom/prampo_config/dev/vendor" (getenv "HOME")))
 
-
+(autoload 'cflow-mode "cflow-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.cflow\\'" . cflow-mode))
+;used for gnus mail
+(setq epg-gpg-program "C:/tools/msys64/usr/bin/gpg.exe")
 ;;; msys2.el ends here

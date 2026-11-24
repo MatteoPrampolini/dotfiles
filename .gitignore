@@ -2,3 +2,9 @@
 .idea
 *.log
 tmp/
+
+# this shouldn't be needed, but it's better to be safe
+*/.local/
+#emacs temp files
+\#*\#
+oauth2.plstore

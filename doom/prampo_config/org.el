@@ -133,3 +133,33 @@
 
   (advice-add 'org-table-next-field :after #'my/org-table-skip-padding)
   (advice-add 'org-table-previous-field :after #'my/org-table-skip-padding))
+
+(defun prampo/org-table-copy-html ()
+  "Copy the current Org table as formatted HTML. Email shit"
+  (interactive)
+  (unless (org-at-table-p)
+    (user-error "Not inside an Org table"))
+  (let* ((table (buffer-substring-no-properties
+                 (org-table-begin) (org-table-end)))
+         (html (org-export-string-as table 'html t))
+         (html (replace-regexp-in-string
+                "<table[^>]*>"
+                "<table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;\">"
+                html))
+         (coding-system-for-write 'utf-8))
+    (with-temp-buffer
+      (insert html)
+      (unless (zerop
+               (call-process-region
+                (point-min) (point-max)
+                "powershell.exe" nil nil nil
+                "-NoProfile" "-Command"
+                "[Console]::InputEncoding=[Text.Encoding]::UTF8; Set-Clipboard -AsHtml -Value ([Console]::In.ReadToEnd())"))
+        (user-error "Clipboard export failed")))
+    (message "HTML table copied")))
+
+;disable modern style for org table
+(after! org-modern
+  (setq org-modern-table nil))
+(custom-set-faces!
+  '(org-table :foreground unspecified :inherit default))

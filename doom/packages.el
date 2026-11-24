@@ -70,3 +70,7 @@
 (package! olivetti)
 ;(package! visual-fill-column) ; capire se olivetti è sufficiente o se serve anche questo
 ;(package! darkroom) ; alt ad olivetti, da provare
+;;oauth2 for gmail
+(package! auth-source-xoauth2-plugin)
+;strumetni per clipboard
+(package! ox-clip)
