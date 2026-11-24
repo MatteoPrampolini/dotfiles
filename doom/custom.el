@@ -15,7 +15,13 @@
      "ff24d14f5f7d355f47d53fd016565ed128bf3af30eb7ce8cae307ee4fe7f3fd0"
      "4990532659bb6a285fee01ede3dfa1b1bdf302c5c3c8de9fad9b6bc63a9252f7" default))
  '(package-selected-packages
-   '(all-the-icons all-the-icons-nerd-fonts darkroom powershell)))
+   '(all-the-icons all-the-icons-nerd-fonts darkroom powershell))
+ '(safe-local-variable-values
+   '((eval let ((active (bound-and-true-p org-modern-mode)))
+      (when active (org-modern-mode -1)) (setq-local org-modern-timestamp nil)
+      (when active (org-modern-mode 1)))
+     (eval when (fboundp 'org-modern-mode) (org-modern-mode -1))
+     (org-modern-mode) (org-modern-timestamp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
