@@ -61,6 +61,18 @@
           (completing-read "File Org: " choices nil t)))
     (cdr (assoc selection choices))))
 
+(require 'json)
+(defun prampo/org-select-ticket-client ()
+  "Completa il cliente anche da una parte del nome e restituisce il label esatto."
+  (let* ((file (expand-file-name "portale_ore/clients.json" org-directory))
+         (clients (with-temp-buffer
+                    (insert-file-contents file)
+                    (mapcar (lambda (client) (gethash "label" client))
+                            (json-parse-buffer :array-type 'list))))
+         (completion-styles '(substring flex))
+         (completion-ignore-case t))
+    (completing-read "Cliente: " (delete-dups clients) nil t)))
+
 ;;; File, capture e impostazioni comuni a Org
 (after! org
   (setq org-directory (expand-file-name "~/org/")
@@ -98,7 +110,7 @@
 
           ("a" "Assistenza / Ticket" item
            (file+headline "lavoro.org" "Tickets")
-           "- [ ] %^{Cliente} %^{Minuti}m: %^{Motivo} (%^{Persona}) %u\n"
+           "- [ ] %(prampo/org-select-ticket-client) {%^{Minuti}} %u: %^{Motivo} (%^{Persona})\n"
            :prepend t
            :after-finalize my/org-update-ticket-cookie))))
 
