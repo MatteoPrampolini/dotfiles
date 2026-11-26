@@ -5,6 +5,7 @@
 (load! "prampo_config/keybinds.el")
 (load! "prampo_config/superagenda.el")
 (load! "prampo_config/website.el")
+(load! "prampo_config/dev/c.el")
 (when IS-WINDOWS
   (load! "prampo_config/windows.el")
   (load! "prampo_config/dev/msys2"))
