@@ -1,11 +1,11 @@
-# -*- mode: snippet -*-
-# name: Clay Text
-# key: cltxt
-# group: Clay
-# expand-env: ((yas-indent-line 'fixed))
+# key: clay-text
+# name: Clay text
+# type: snippet
+# group: Clay v0.14
+# contributor: rayclay_probe
 # --
 CLAY_TEXT(CLAY_STRING("${1:Text}"), CLAY_TEXT_CONFIG({
     .fontId = ${2:0},
     .fontSize = ${3:16},
-    .textColor = {${4:255, 255, 255, 255}},
-}));$0
+    .textColor = ${4:{ 255, 255, 255, 255 }},
+}));

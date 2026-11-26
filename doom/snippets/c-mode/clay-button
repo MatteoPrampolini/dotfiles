@@ -1,0 +1,29 @@
+# key: clay-button
+# name: Clay button element
+# type: snippet
+# group: Clay v0.14
+# contributor: rayclay_probe
+# --
+CLAY({
+    .id = CLAY_ID("${1:Button}"),
+    .layout = {
+        .layoutDirection = CLAY_LEFT_TO_RIGHT,
+        .sizing = {
+            .width = CLAY_SIZING_FIT(),
+            .height = CLAY_SIZING_FIT(),
+        },
+        .padding = {
+            .left = ${2:12}, .right = ${3:12},
+            .top = ${4:8}, .bottom = ${5:8},
+        },
+    },
+    .backgroundColor = ${6:{ 64, 96, 160, 255 }},
+    .cornerRadius = CLAY_CORNER_RADIUS(${7:4}),
+}) {
+    CLAY_TEXT(CLAY_STRING("${8:Button}"), CLAY_TEXT_CONFIG({
+        .fontId = 0,
+        .fontSize = ${9:16},
+        .textColor = { 255, 255, 255, 255 },
+    }));
+    $0
+}

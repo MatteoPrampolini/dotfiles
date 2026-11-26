@@ -1,0 +1,21 @@
+# key: clay-elem
+# name: Clay element
+# type: snippet
+# group: Clay v0.14
+# contributor: rayclay_probe
+# --
+CLAY({
+    .id = CLAY_ID("${1:Element}"),
+    .layout = {
+        .layoutDirection = ${2:CLAY_TOP_TO_BOTTOM},
+        .sizing = {
+            .width = ${3:CLAY_SIZING_FIT()},
+            .height = ${4:CLAY_SIZING_FIT()},
+        },
+        .padding = CLAY_PADDING_ALL(${5:0}),
+        .childGap = ${6:0},
+    },
+    .backgroundColor = ${7:{ 0, 0, 0, 0 }},
+}) {
+    $0
+}

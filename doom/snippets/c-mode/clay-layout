@@ -1,0 +1,9 @@
+# key: clay-layout
+# name: Clay begin/end layout
+# type: snippet
+# group: Clay v0.14
+# contributor: rayclay_probe
+# --
+Clay_BeginLayout();
+$0
+Clay_RenderCommandArray ${1:commands} = Clay_EndLayout();
