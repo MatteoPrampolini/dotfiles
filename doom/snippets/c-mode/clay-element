@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Clay Element
+# key: clay-elem
+# group: Clay
+# expand-env: ((yas-indent-line 'fixed))
+# --
+CLAY({
+    .id = CLAY_ID("${1:Element}"),
+    $2
+}) {
+    $0
+}

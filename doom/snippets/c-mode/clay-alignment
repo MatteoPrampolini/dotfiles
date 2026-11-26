@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Clay Alignment
+# key: clalign
+# group: Clay
+# expand-env: ((yas-indent-line 'fixed))
+# --
+.childAlignment = {
+    .x = ${1:$$(yas-choose-value '("CLAY_ALIGN_X_LEFT" "CLAY_ALIGN_X_CENTER" "CLAY_ALIGN_X_RIGHT"))},
+    .y = ${2:$$(yas-choose-value '("CLAY_ALIGN_Y_TOP" "CLAY_ALIGN_Y_CENTER" "CLAY_ALIGN_Y_BOTTOM"))},
+},$0

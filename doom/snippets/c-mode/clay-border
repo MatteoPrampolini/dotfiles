@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Clay Border
+# key: clborder
+# group: Clay
+# expand-env: ((yas-indent-line 'fixed))
+# --
+.border = {
+    .color = {${1:255, 255, 255, 255}},
+    .width = CLAY_BORDER_OUTSIDE(${2:1}),
+},
+.cornerRadius = CLAY_CORNER_RADIUS(${3:0}),$0
