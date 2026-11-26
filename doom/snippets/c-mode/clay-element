@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Element
-# key: clay-elem
+# key: clayelement
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --

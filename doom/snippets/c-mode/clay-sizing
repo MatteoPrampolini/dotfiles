@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Sizing
-# key: clsizing
+# key: claysizing
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --

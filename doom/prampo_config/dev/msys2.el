@@ -132,6 +132,16 @@
               explicit-shell-file-name bash
               explicit-bash-args '("--login" "-i"))
 
+        ;; Eshell interpreta gli shebang fuori dal filesystem virtuale di MSYS2.
+        (defun prampo/msys2-eshell-find-env (command)
+          (when (equal command "/usr/bin/env")
+            (let ((env (expand-file-name "usr/bin/env.exe" prampo/msys2-root)))
+              (when (file-executable-p env)
+                env))))
+
+        (with-eval-after-load 'esh-ext
+          (add-hook 'eshell-alternate-command-hook #'prampo/msys2-eshell-find-env))
+
 
         ;;; Eglot / clangd
 

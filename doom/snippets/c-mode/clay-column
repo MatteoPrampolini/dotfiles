@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Column
-# key: clcol
+# key: claycol
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --

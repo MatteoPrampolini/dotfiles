@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Alignment
-# key: clalign
+# key: clayalign
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --

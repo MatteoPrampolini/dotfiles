@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Border
-# key: clborder
+# key: clayborder
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --

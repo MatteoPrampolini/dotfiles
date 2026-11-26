@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Clay Padding
-# key: clpad
+# key: claypad
 # group: Clay
 # expand-env: ((yas-indent-line 'fixed))
 # --
